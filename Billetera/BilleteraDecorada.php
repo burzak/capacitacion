@@ -6,7 +6,7 @@ class BilleteraDecorada implements Billetera
 
     private $contador;
 
-    public function __construct(BilleteraInterface $billetera)
+    public function __construct(Billetera $billetera)
     {
         $this->decorada = $billetera;
 
