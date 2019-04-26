@@ -1,6 +1,7 @@
 <?php
 
 include './Billetera.php';
+include './BilleteraEnPesos.php';
 include './programa_secreto.php';
 
 $miBilletera = new Billetera();
