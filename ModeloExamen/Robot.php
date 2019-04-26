@@ -39,7 +39,7 @@ class Robot
 
   public function __construct()
   {
-    $this->baterio = 0;
+    
     $this->posicionX = 0;
     $this->posicionY = 0;
   }
