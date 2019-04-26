@@ -1,7 +1,7 @@
 <?php
 
 require_once('./vendor/autoload.php');
-require('./CasiBuscaMinas.php');
+require_once('./CasiBuscaMinas.php');
 
 use PHPUnit\Framework\TestCase;
 
@@ -10,108 +10,83 @@ final class testCasiBuscaMinas extends TestCase
 
   public function testExisteCasiBuscaMinas() 
   {
-    $this->assertTrue(class_exists("CasiBuscaMinas"));
+    $this->assertTrue(class_exists("BuscaMinas"));
   }
-    
+
   
-  public function testTieneLaPalabraQueYoDigo() 
+  public function testAgregarMinasCorrectamente() 
   {
-    $this->bm = new CasiBuscaMinas(5,5);
-    $this->
-    $this->assertEquals( $palabra , $ahorcado->damePalabra());
-  }
+    $this->bm = new BuscaMinas(5,5);
+    $this->bm->agregarMina(0,0);
+    $this->bm->agregarMina(2,1);
+    $this->bm->agregarMina(4,3);
+    $this->bm->agregarMina(0,4);
+    $this->bm->agregarMina(2,4);
 
-
-
-
-
-
-
-
-
-
-
-  public function testTieneIntentos() 
-  {
-    $intentos = rand(0, 500);
-    $ahorcado = new Ahorcado("aeou", $intentos);
-    $this->assertEquals($intentos, $ahorcado->dameIntentos());
-  }
-
-  public function testEstaLaLetra() 
-  {
-    $ahorcado = new Ahorcado("chachara", 5);
-    $esta = $ahorcado->pasarLetra('h');
-    $this->assertEquals(True, $esta, "Esta la h");
-  }
-
-  public function testNoEstaLetra() 
-  {
-    $ahorcado = new Ahorcado("chachara", 5);
-    $esta = $ahorcado->pasarLetra('e');
-    $this->assertEquals(False, $esta, "No esta");
-  }
-
-  public function testRestaIntentos() 
-  {
-    $ahorcado = new Ahorcado("chachara", 5);
-    $this->assertEquals(5,$ahorcado->dameIntentosRestantes());
+    $this->assertEquals(array (-9999,2,1,1,0)    ,$this->bm->minas[0],'FALLO AL MARCAR VALORES EN TABLA');
+    $this->assertEquals(array (1,2,-9999,1,0)    ,$this->bm->minas[1],'FALLO AL MARCAR VALORES EN TABLA');
+    $this->assertEquals(array (0,1,  1,  2,1)    ,$this->bm->minas[2],'FALLO AL MARCAR VALORES EN TABLA');
+    $this->assertEquals(array (1,2,1,2,-9999)    ,$this->bm->minas[3],'FALLO AL MARCAR VALORES EN TABLA');
+    $this->assertEquals(array (-9999,2,-9999,2,1),$this->bm->minas[4],'FALLO AL MARCAR VALORES EN TABLA');
     
-    $ahorcado->pasarLetra('z');
-    $this->assertEquals(4,$ahorcado->dameIntentosRestantes());
-    $ahorcado->pasarLetra('h');
-    $this->assertEquals(4,$ahorcado->dameIntentosRestantes());
+    //AGREGAR COMENTARIO :   
   }
 
-  public function testSiEsBoludoResta() 
+  public function testSacarMinasCorrectamente() 
   {
-    $ahorcado = new Ahorcado("chachara", 5);
-    $this->assertEquals(5,$ahorcado->dameIntentosRestantes());
+    $this->bm = new BuscaMinas(5,5);
+    $this->bm->agregarMina(0,0);
+    $this->bm->agregarMina(2,1);
+    $this->bm->agregarMina(4,3);
+    $this->bm->agregarMina(0,4);
+    $this->bm->agregarMina(2,4);
+
+    $this->bm->sacarMina(2,1);
+    $this->bm->sacarMina(4,3);
+    $this->bm->sacarMina(0,4);
+    $this->bm->sacarMina(2,4);
+
+    $this->assertEquals(array (-9999,1,0,0,0),$this->bm->minas[0],'FALLO AL MARCAR VALORES EN TABLA');
+    $this->assertEquals(array (1,1,0,0,0)    ,$this->bm->minas[1],'FALLO AL MARCAR VALORES EN TABLA');
+    $this->assertEquals(array (0,0,0,0,0)    ,$this->bm->minas[2],'FALLO AL MARCAR VALORES EN TABLA');
+    $this->assertEquals(array (0,0,0,0,0)    ,$this->bm->minas[3],'FALLO AL MARCAR VALORES EN TABLA');
+    $this->assertEquals(array (0,0,0,0,0)    ,$this->bm->minas[4],'FALLO AL MARCAR VALORES EN TABLA');
     
-    $ahorcado->pasarLetra('h');
-    $this->assertEquals(5,$ahorcado->dameIntentosRestantes());
-    $ahorcado->pasarLetra('h');
-    $this->assertEquals(4,$ahorcado->dameIntentosRestantes());
   }
-
-  public function testMostrarTodoOculto() 
+  public function testPerdio()
   {
-    $ahorcado = new Ahorcado("cha", 5);
-    $this->assertEquals('---',$ahorcado->mostrar());
-  }
+    $this->bm = new BuscaMinas(5,5);
+    $this->bm->agregarMina(0,0);
+    $this->bm->agregarMina(2,1);
+    $this->bm->agregarMina(4,3);
+    $this->bm->agregarMina(0,4);
+    $this->bm->agregarMina(2,4);
 
-  public function testMostrarCasiTodoOculto() 
-  {
-    $ahorcado = new Ahorcado("cha", 5);
-    $ahorcado->pasarLetra("h");
-    $this->assertEquals('-h-',$ahorcado->mostrar());
-    $this->assertFalse($ahorcado->gano());
-    $ahorcado->pasarLetra("a");
-    $this->assertEquals('-ha',$ahorcado->mostrar());
-    $this->assertFalse($ahorcado->gano());
-    $ahorcado->pasarLetra("c");
-    $this->assertEquals('cha', $ahorcado->mostrar() );
-    $this->assertTrue($ahorcado->gano());
-  }
+    $this->assertFalse($this->bm->jugar(4,3));
+    $this->assertTrue($this->bm->terminoDeJugar());
 
+  }
 
   public function testGano()
   {
-    $ahorcado = new Ahorcado("ab", 5);
-    $ahorcado->pasarLetra("a");
-    $this->assertFalse($ahorcado->perdio());
-    $this->assertFalse($ahorcado->gano());
-    $ahorcado->pasarLetra("b");
-    $this->assertFalse($ahorcado->perdio());
-    $this->assertTrue($ahorcado->gano());
+    $this->bm = new BuscaMinas(5,5);
+    $this->bm->agregarMina(0,0);
+    $this->bm->agregarMina(2,1);
+    $this->bm->agregarMina(4,3);
+    $this->bm->agregarMina(0,4);
+    $this->bm->agregarMina(2,4);
+
+    $this->bm->sacarMina(0,0);
+    $this->bm->sacarMina(2,1);
+    $this->bm->sacarMina(4,3);
+    $this->bm->sacarMina(0,4);
+    $this->bm->sacarMina(2,4);
+
+    $this->assertTrue($this->bm->gano());
+    $this->assertTrue($this->bm->terminoDeJugar());
+
+
+
   }
 
-  public function testPerdio() 
-  {
-    $ahorcado = new Ahorcado("a", 1);
-    $ahorcado->pasarLetra("z");
-    $this->assertTrue($ahorcado->perdio());
-    $this->assertFalse($ahorcado->gano());
-    $this->assertEquals(0, $ahorcado->dameIntentosRestantes());
-  }
 }
