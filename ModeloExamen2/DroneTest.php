@@ -6,5 +6,8 @@ use PHPUnit\Framework\TestCase;
 
 final class DroneTest extends TestCase
 {
-    
+    public function construirDrone()
+    {
+        
+    }
 }
