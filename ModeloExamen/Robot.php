@@ -32,18 +32,45 @@
  */
 
 class Robot {
+
+  private $cargaDeBateria;
+  private $X;
+  private $Y;
+
+  public function __construct()
+  {
+    $this->cargaDeBateria=0;
+    $this->X=0;
+    $this->Y=0;
+  }
+
+
   public function cargar() {
+   $this->cargaDeBateria=100;
+
   }
 
   public function bateria() {
+    return $this->cargaDeBateria;
+
   }
 
   public function posicionX() {
+    
+    return $this->X;
   }
 
   public function posicionY() {
+    return $this->Y;
   }
 
   public function mover($x, $y) {
+    if ($this->cargaDeBateria>0) {
+      $this->X = $x;
+      $this->Y = $y;
+      $this->cargaDeBateria-=10;
+      return true;
+    }
+    return false;
   }
 }
