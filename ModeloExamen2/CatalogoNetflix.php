@@ -28,22 +28,65 @@ class CatalogoNetflix {
    * Esta funcion solo nos dice si existe la pelicula o serie con
    * el id que nos pasan
    */
+  private $catalogo;
+
+  public function __construct()
+  {
+    $this->catalogo = [];
+  }
+
   public function existeId($id) {
+      if (!empty($this->catalogo[$id])) {
+        return true;
+      } else {
+          return false;
+        }
   }
 
   public function agregarSerie($id, $nombre, $cantidadCapitulos, $categoria) {
+      if (empty($this->catalogo[$id])) {
+        $this->catalogo[$id]=['id'=>$id,'nombre'=>$nombre,'cantidadCapitulos'=>$cantidadCapitulos,'categoria'=>$categoria];
+        return true;
+      }else{
+        return false;
+      }
   }
 
   public function agrearPelicula($id, $nombre, $tiempo, $categoria) {
+      if (empty($this->catalogo[$id])) {
+        $this->catalogo[$id]=['id'=>$id,'nombre'=>$nombre,'tiempo'=>$tiempo,'categoria'=>$categoria];
+        return true;
+      }else{
+        return false;
+      }
   }
 
   public function sacarSerie($id) {
+      if (!empty($this->catalogo[$id])) {
+        unset($this->catalogo[$id]);
+        return true;
+      }else {
+        return false;
+      }
   }
 
   public function sacarPelicula($id) {
+      if (!empty($this->catalogo[$id])) {
+        unset($this->catalogo[$id]);
+        return true;
+      }else {
+        return false;
+      }
   }
 
   public function listarContenidoDeLaCategoria($categoria) {
-  }
+      $contenidos=[];
+      foreach ($this->catalogo as $contenido) {
+          if ($contenido['categoria'] == $categoria) {
+            $contenidos[]=$contenido;
+          }
+        }
+        return $contenidos;
+    }
 
 }
