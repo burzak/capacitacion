@@ -23,27 +23,71 @@
  * bien porque es nuestro primer cliente importante!
  */
 
-class CatalogoNetflix {
+class CatalogoNetflix 
+{
   /**
    * Esta funcion solo nos dice si existe la pelicula o serie con
    * el id que nos pasan
    */
-  public function existeId($id) {
+
+   private $catalogo = array();
+
+  public function existeId($id) 
+  {
+    return array_key_exists($id,$this->catalogo);
+
   }
 
-  public function agregarSerie($id, $nombre, $cantidadCapitulos, $categoria) {
+  public function agregarSerie($id, $nombre, $cantidadCapitulos, $categoria) 
+  {
+    $this->catalogo[$id] = ['id'=>$id,
+                            'nombre'=>$nombre,
+                            'cantidadCapitulos'=>$cantidadCapitulos,
+                            'categoria'=>$categoria];
+
+    return $this->existeId($id);
+   
   }
 
-  public function agrearPelicula($id, $nombre, $tiempo, $categoria) {
+  public function agrearPelicula($id, $nombre, $tiempo, $categoria) 
+  {
+    $this->catalogo[$id] = ['id'=>$id,
+                            'nombre'=>$nombre,
+                            'tiempo'=>$tiempo,
+                            'categoria'=>$categoria];
+    return $this->existeId($id);
   }
 
-  public function sacarSerie($id) {
+  public function sacarSerie($id) 
+  {
+    unset($this->catalogo[$id]);
+    return !$this->existeId($id);
   }
 
-  public function sacarPelicula($id) {
+  public function sacarPelicula($id) 
+  {
+    unset($this->catalogo[$id]);
+    return !$this->existeId($id);
   }
 
-  public function listarContenidoDeLaCategoria($categoria) {
+  public function listarContenidoDeLaCategoria($categoria) 
+  {
+    $listaCategorias = array();
+
+    foreach($this->catalogo as $serie_peliculas)
+    {
+      if($categoria == $serie_peliculas['categoria'])
+      {
+        $listaCategorias[] = $serie_peliculas;
+      }
+    }
+
+    return $listaCategorias;
+
   }
 
 }
+
+$catalogo = new CatalogoNetflix();
+$catalogo->agrearPelicula(1122, "Loco por Mary", 120, 'risa');
+var_dump( $catalogo->existeId(1122));
