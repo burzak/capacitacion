@@ -25,7 +25,7 @@ final class AhorcadoTest extends TestCase
   public function testTieneIntentos() {
     $intentos = rand(0, 500);
     $ahorcado = new Ahorcado("aeou", $intentos);
-    $this->assertEquals($intentos, $ahorcado->dameIntentos());
+    $this->assertEquals($intentos, $ahorcado->dameIntentosRestantes());
   }
 
   public function testEstaLaLetra() {
@@ -71,7 +71,7 @@ final class AhorcadoTest extends TestCase
   function testMostrarTodoOculto() {
     $ahorcado = new Ahorcado("cha", 5);
     $this->assertEquals(
-      '_ _ _',
+      ' _  _  _ ',
       $ahorcado->mostrar()
     );
   }
@@ -80,21 +80,21 @@ final class AhorcadoTest extends TestCase
     $ahorcado = new Ahorcado("cha", 5);
     $ahorcado->pasarLetra("h");
     $this->assertEquals(
-      '_ h _',
+      ' _  h  _ ',
       $ahorcado->mostrar()
     );
     $this->assertFalse($ahorcado->gano());
 
     $ahorcado->pasarLetra("a");
     $this->assertEquals(
-      '_ h a',
+      ' _  h  a ',
       $ahorcado->mostrar()
     );
     $this->assertFalse($ahorcado->gano());
 
     $ahorcado->pasarLetra("c");
     $this->assertEquals(
-      'c h a',
+      ' c  h  a ',
       $ahorcado->mostrar()
     );
     $this->assertTrue($ahorcado->gano());

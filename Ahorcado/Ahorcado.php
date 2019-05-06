@@ -1,5 +1,9 @@
 <?php
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> a7db76f98933cd932b634681da1f4ba236d9b559
 class Ahorcado {
   private $palabra;
   private $letras = array();
@@ -12,7 +16,11 @@ class Ahorcado {
   public function damePalabra() {
     return $this->palabra;
   }
+<<<<<<< HEAD
  
+=======
+
+>>>>>>> a7db76f98933cd932b634681da1f4ba236d9b559
   public function pasarLetra($letra) {
     if (!empty($this->letras[$letra])) {
       $this->intentos--;
@@ -25,11 +33,19 @@ class Ahorcado {
     }
     return true;
   }
+<<<<<<< HEAD
  
   public function dameIntentosRestantes() {
     return $this->intentos;
   }
  
+=======
+
+  public function dameIntentosRestantes() {
+    return $this->intentos;
+  }
+
+>>>>>>> a7db76f98933cd932b634681da1f4ba236d9b559
   public function gano() {
     $count = 0;
     for($i=0; $i<strlen($this->palabra); $i++) {
@@ -39,11 +55,19 @@ class Ahorcado {
     }
     return $count == strlen($this->palabra);
   }
+<<<<<<< HEAD
  
   public function perdio() {
     return $this->intentos == 0;
   }
  
+=======
+  
+  public function perdio() {
+    return $this->intentos == 0;
+  }
+
+>>>>>>> a7db76f98933cd932b634681da1f4ba236d9b559
   public function mostrar() {
     $mostrar = "";
     for($i=0; $i<strlen($this->palabra); $i++) {
