@@ -6,40 +6,6 @@ include 'Drone.php';
 use PHPUnit\Framework\TestCase;
 
 
-/**
- * Tenemos un drone para vigilar un country. El drone
- * tiene una bateria fija y gasta bateria por cada movimiento
- * que hace. Por default el drone arranca en la posicion 0,0 y con
- * la bateria llena.
- * 
- * Tambien guardamos el historial de movimientos. El drone
- * no se mueve a menos que tenga una cantidad suficiente
- * de bateria.
- * 
- * El drone se carga la bateria cuando vuelve al punto central
- * que es la posicion 0,0 .
- * 
-  * Si tiene suficiente bateria se mueve a la posicion
- * que le pasas.
- * 
- * Se resta un punto de bateria por cada posicion en x
- * y un punto de bateria por cada posicion en y.
- * 
- * Por ej:
- *  - Si esta en la posicion 0,0 y movemos a 2,5 entonces
- *    gastamos 7 puntos de bateria.
- *  - Si estas en la posicion 2,5 y nos movemos a la posicion
- *    5,5 gastamos gastamos 3 puntos de bateria.
- * 
- * Historial de todos los movimientos del drone
- * 
- * 
-public function __construct($tamanioTanque)
-public function cantidadDeBateria()
-public function mover($x, $y)
-public function historial()
- */
-
 final class DroneTest extends TestCase
 {   
   public function testClaseExiste()
